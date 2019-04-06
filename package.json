@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/MonSpek/CrackBot/issues"
   },
-  "homepage": "https://github.com/MonSpek/CrackBot#readme"
+  "homepage": "https://github.com/MonSpek/CrackBot#readme",
+  "dependencies": {
+    "cli-colors": "0.0.2",
+    "discord.js": "^11.4.2"
+  }
 }

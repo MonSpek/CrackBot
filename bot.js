@@ -1,7 +1,8 @@
 const Discord = require('discord.js'),
     config = require('./config.json'),
     fs = require('fs'),
-    clc = require('cli-colors');
+    clc = require('cli-colors'),
+    mongoose = require('mongoose');
 
 //*core client
 const client = new Discord.Client({
@@ -13,12 +14,17 @@ const client = new Discord.Client({
     ]
 });
 
+mongoose.connect(`mongodb+srv://CrackBot:${config.mPass}@crackbot-vjtvv.mongodb.net/test?retryWrites=true`, {
+    useNewUrlParser: true
+});
+
 //* vars
 client.commands = new Discord.Collection();
 client.commands.aliases = new Discord.Collection();
+client.prefix = 'c!';
 
 //* Command handler
-fs.readdirSync('./commands').forEach(category => {
+fs.readdirSync('./commands/').forEach(category => { //* Command Loader
     const commandFile = fs.readdirSync(`./commands/${category}`).filter(file => file.endsWith('.js'));
     for (const file of commandFile) {
         const props = require(`./commands/${category}/${file}`);
@@ -31,6 +37,7 @@ fs.readdirSync('./commands').forEach(category => {
     }
 });
 
+
 //* Event handler
 fs.readdir('./events/', (err, files) => {
     if (err) console.error(err); //* logs error
@@ -39,6 +46,7 @@ fs.readdir('./events/', (err, files) => {
         const event = require(`./events/${file}`);
         let eventName = file.split('.')[0];
         client.on(eventName, event.bind(null, client));
+        delete require.cache[require.resolve(`./events/${file}`)];
     });
 });
 

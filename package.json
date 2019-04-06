@@ -18,6 +18,7 @@
   "homepage": "https://github.com/MonSpek/CrackBot#readme",
   "dependencies": {
     "cli-colors": "0.0.2",
-    "discord.js": "^11.4.2"
+    "discord.js": "^11.4.2",
+    "mongoose": "^5.4.22"
   }
 }

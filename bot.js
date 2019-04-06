@@ -17,6 +17,21 @@ const client = new Discord.Client({
 client.commands = new Discord.Collection();
 client.commands.aliases = new Discord.Collection();
 
+//* Command handler
+fs.readdirSync('./commands').forEach(category => {
+    const commandFile = fs.readdirSync(`./commands/${category}`).filter(file => file.endsWith('.js'));
+    for (const file of commandFile) {
+        const props = require(`./commands/${category}/${file}`);
+        let fileName = file.replace('.js', '');
+        console.log(clc.cyan(`[${category}] `) + clc.magenta(`${fileName}`));
+        client.commands.set(props.help.name, props);
+        props.help.aliases.forEach(alias => {
+            client.commands.aliases.set(alias, props.help.name);
+        });
+    }
+});
+
+//* Event handler
 fs.readdir('./events/', (err, files) => {
     if (err) console.error(err); //* logs error
     files.forEach(file => {

@@ -38,7 +38,7 @@ module.exports = async (client, message) => {
                 let lvlUpEmb = new Discord.RichEmbed()
                     .setTitle("Level Up!")
                     .setColor(config.main)
-                    .addField(`Good job Hustla, <@${message.author.id}> hs ranked up`)
+                    .setDescription(`Good job Hustla, ${message.author} hs ranked up`)
                     .setFooter(`You are now rank ${curLvl + 1}`);
 
                     message.channel.send(lvlUpEmb).then(msg => { msg.delete(5000) });

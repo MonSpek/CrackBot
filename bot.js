@@ -14,8 +14,13 @@ const client = new Discord.Client({
     ]
 });
 
-mongoose.connect(`mongodb+srv://CrackBot:${config.mPass}@crackbot-vjtvv.mongodb.net/test?retryWrites=true`, {
+mongoose.connect(`mongodb+srv://CrackBot:${config.mPass}@crackbot-vjtvv.mongodb.net/crack?retryWrites=true`, {
     useNewUrlParser: true
+});
+
+client.on('guildMemberAdd', member => {
+    let memberRole = member.guild.roles.find(r => r.name === 'Cowards');
+    member.addRole(memberRole);
 });
 
 //* vars

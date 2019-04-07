@@ -43,6 +43,10 @@ module.exports = async (client, message) => {
                     .setFooter(`You are now rank ${curLvl + 1}`);
 
                 message.channel.send(lvlUpEmb).then(msg => { msg.delete(5000) });
+
+                if (xp.level === 3) {
+                    
+                }
             }
 
             xp.save().catch(err => console.log(err));

@@ -45,7 +45,16 @@ module.exports = async (client, message) => {
                 message.channel.send(lvlUpEmb).then(msg => { msg.delete(5000) });
 
                 if (xp.level === 3) {
-                    
+                    let memberRole = message.member.guild.roles.find(r => r.name === 'Bustas');
+                    message.member.addRole(memberRole);
+                }
+                if (xp.level === 6) {
+                    let memberRole = message.member.guild.roles.find(r => r.name === 'Hustlas');
+                    message.member.addRole(memberRole);
+                }
+                if (xp.level === 10) {
+                    let memberRole = message.member.guild.roles.find(r => r.name === 'Dealas');
+                    message.member.addRole(memberRole);
                 }
             }
 

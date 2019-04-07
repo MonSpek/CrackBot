@@ -1,6 +1,7 @@
 const fs = require('fs'),
     Discord = require('discord.js');
 const config = require('../config.json'),
+    colors = require('../colors.json'),
     XP = require('../models/xp.js'),
     errors = require('../Lib/errors.js'),
     emb = require('../Lib/embeds.js');
@@ -37,7 +38,7 @@ module.exports = async (client, message) => {
 
                 let lvlUpEmb = new Discord.RichEmbed()
                     .setTitle("Level Up!")
-                    .setColor(config.main)
+                    .setColor(colors.main)
                     .setDescription(`Good job Hustla, ${message.author} hs ranked up`)
                     .setFooter(`You are now rank ${curLvl + 1}`);
 

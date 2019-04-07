@@ -29,7 +29,7 @@ module.exports = async (client, message) => {
             newXp.save().catch(err => console.error(err));
         } else {
             let curLvl = xp.level;
-            let nextLvl = xp.level * 500;
+            let nextLvl = xp.level * 5000;
 
             xp.xp = xp.xp + xpToAdd;
 
@@ -42,12 +42,16 @@ module.exports = async (client, message) => {
                     .setDescription(`Good job Hustla, ${message.author} hs ranked up`)
                     .setFooter(`You are now rank ${curLvl + 1}`);
 
-                    message.channel.send(lvlUpEmb).then(msg => { msg.delete(5000) });
+                message.channel.send(lvlUpEmb).then(msg => { msg.delete(5000) });
             }
 
             xp.save().catch(err => console.log(err));
         }
     })
+
+    if (message.content.includes(client.user.toString())) {
+        message.channel.send(`${message.author}\nWhat up busta?`)
+    }
 
     //* vars
     let prefix = client.prefix;

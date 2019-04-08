@@ -72,8 +72,9 @@ module.exports = async (client, message) => {
     let command = msgArray[0].toLowerCase();
     let arg = msgArray.slice(1);
     let cmd = client.commands.get(command.slice(client.prefix.length)) || client.commands.get(client.commands.aliases.get(command.slice(client.prefix.length)));
+    let input = message.content.toLowerCase();
 
-    if (!message.content.startsWith(prefix)) return; //If prefix is not present then exit
+    if (!input.startsWith(prefix)) return; //If prefix is not present then exit
 
     if (cmd) {
         cmd.run(message, arg, client, errors, emb);

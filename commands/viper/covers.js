@@ -14,6 +14,7 @@ module.exports.run = async (message, arg, client, errors, emb) => {
         const embed = new Discord.RichEmbed()
             .setTitle('Sick Cover Mayne')
             .setColor(colors.main)
+            .setFooter(`Done by ${message.author.username}`)
             .attachFile(fileInEmb)
             .setImage(`attachment://${file}`);
 

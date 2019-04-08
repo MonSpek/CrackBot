@@ -42,7 +42,6 @@ fs.readdirSync('./commands/').forEach(category => { //* Command Loader
     }
 });
 
-
 //* Event handler
 fs.readdir('./events/', (err, files) => {
     if (err) console.error(err); //* logs error

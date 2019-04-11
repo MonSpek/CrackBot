@@ -63,7 +63,22 @@ module.exports = async (client, message) => {
     })
 
     if (message.content.includes(client.user.toString())) {
-        message.channel.send(`${message.author}\nWhat up busta?`)
+        if (message.content.includes('yo')) {
+            message.channel.send(`${message.author}\nWhat up busta?`);
+        } else {
+            const filter = m => m.author.id === message.author.id;
+
+            await message.reply('Hey Busta, want some crack?');
+            message.channel.awaitMessages(filter, { max: 1, time: 30000 }).then(collected => {
+                if (collected.first().content.toLowerCase() === "no" || collected.first().content.toLowerCase() === "n") {
+                    console.log('n');
+                    message.reply('You coward');
+                } else if (collected.first().content.toLowerCase() === "yes" || collected.first().content.toLowerCase() === "y") {
+                    console.log('y');
+                    message.reply("You are a dope boy busta");
+                }
+            }).catch(err => console.error(err))
+        }
     }
 
     //* vars

@@ -71,11 +71,14 @@ module.exports = async (client, message) => {
             await message.reply('Hey Busta, want some crack?');
             message.channel.awaitMessages(filter, { max: 1, time: 30000 }).then(collected => {
                 if (collected.first().content.toLowerCase() === "no" || collected.first().content.toLowerCase() === "n") {
-                    console.log('n');
                     message.reply('You coward');
                 } else if (collected.first().content.toLowerCase() === "yes" || collected.first().content.toLowerCase() === "y") {
-                    console.log('y');
-                    message.reply("You are a dope boy busta");
+                    message.reply("You are a dope boy busta\nIt'll cost you 100 points though busta.\nIs that ok? (Y/N)");
+                    message.channel.awaitMessages(filter, { max: 1, time: 30000 }).then(col => {
+                        if (col.first().content.toLowerCase() === "no") {
+                            console.log('test');
+                        }
+                    })
                 }
             }).catch(err => console.error(err))
         }

@@ -74,7 +74,7 @@ module.exports = async (client, message) => {
                 if (collected.first().content.toLowerCase() === "no" || collected.first().content.toLowerCase() === "n") {
                     message.reply('You coward');
                     return;
-                } else if (collected.first().content.toLowerCase() === "yes" || collected.first().content.toLowerCase() === "y") {
+                } else if (collected.first().content.toLowerCase() === "yes" || collected.first().content.toLowerCase() === "y" || collected.first().content.toLowerCase() === "ye") {
                     message.reply("You are a dope boy busta\nIt'll cost you 100 points though busta.\nIs that ok? (Y/N)");
                     message.channel.awaitMessages(filter, { max: 1, time: 30000 }).then(col => {
                         if (col.first().content.toLowerCase() === "no" || col.first().content.toLowerCase() === "n") {
@@ -109,9 +109,9 @@ module.exports = async (client, message) => {
                                             newCrack.save().catch(err => console.error(err));
 
                                             const crackEmb = new Discord.RichEmbed()
-                                                .setTitle("Level Up!")
+                                                .setTitle("Crack Acquired!")
                                                 .setColor(colors.main)
-                                                .setDescription(`Good job Busta, ${message.author} has bought some crack!`)
+                                                .setDescription(`Good job busta, ${message.author} has bought some crack!`)
                                                 .setFooter('You now have 1 crack rock');
 
                                             message.channel.send(crackEmb);
@@ -123,7 +123,7 @@ module.exports = async (client, message) => {
                                             const crackEmb = new Discord.RichEmbed()
                                                 .setTitle("Crack Acquired!")
                                                 .setColor(colors.main)
-                                                .setDescription(`Good job Busta, ${message.author} has bought some crack!`)
+                                                .setDescription(`Good job busta, ${message.author} has bought some crack!`)
                                                 .setFooter(`You now have ${curCrackLvl + 1} crack rocks`);
 
                                             message.channel.send(crackEmb);

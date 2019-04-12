@@ -121,7 +121,7 @@ module.exports = async (client, message) => {
                                             crack.save().catch(err => console.log(err));
 
                                             const crackEmb = new Discord.RichEmbed()
-                                                .setTitle("Level Up!")
+                                                .setTitle("Crack Acquired!")
                                                 .setColor(colors.main)
                                                 .setDescription(`Good job Busta, ${message.author} has bought some crack!`)
                                                 .setFooter(`You now have ${curCrackLvl + 1} crack rocks`);

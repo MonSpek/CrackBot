@@ -75,7 +75,7 @@ module.exports = async (client, message) => {
                     message.reply('You coward');
                     return;
                 } else if (collected.first().content.toLowerCase() === "yes" || collected.first().content.toLowerCase() === "y" || collected.first().content.toLowerCase() === "ye") {
-                    message.reply("You are a dope boy busta\nIt'll cost you 100 points though busta.\nIs that ok? (Y/N)");
+                    message.reply("You are a dope boy busta\nIt'll cost you 1000 points though busta.\nIs that ok? (Y/N)");
                     message.channel.awaitMessages(filter, { max: 1, time: 30000 }).then(col => {
                         if (col.first().content.toLowerCase() === "no" || col.first().content.toLowerCase() === "n") {
                             message.reply("Go get some points then coward!");
@@ -86,11 +86,11 @@ module.exports = async (client, message) => {
                                 serverID: message.guild.id
                             }, (err, xp) => {
                                 if (err) console.error(err);
-                                if (!xp || xp.xp < 100) {
+                                if (!xp || xp.xp < 1000) {
                                     message.reply("Go get some points coward!");
                                     return;
-                                } else if (xp.xp >= 100) {
-                                    xp.xp = xp.xp - 100;
+                                } else if (xp.xp >= 1000) {
+                                    xp.xp = xp.xp - 1000;
                                     CRACK.findOne({
                                         userID: message.author.id,
                                         serverID: message.guild.id

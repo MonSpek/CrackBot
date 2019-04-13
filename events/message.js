@@ -80,7 +80,7 @@ module.exports = async (client, message) => {
                         if (col.first().content.toLowerCase() === "no" || col.first().content.toLowerCase() === "n") {
                             message.reply("Go get some points then coward!");
                             return;
-                        } else if (col.first().content.toLowerCase() === "yes" || col.first().content.toLowerCase() === "y" || col.first().content.toLowerCase() === ye) {
+                        } else if (col.first().content.toLowerCase() === "yes" || col.first().content.toLowerCase() === "y" || col.first().content.toLowerCase() === "ye") {
                             XP.findOne({
                                 userID: message.author.id,
                                 serverID: message.guild.id

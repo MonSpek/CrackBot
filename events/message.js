@@ -70,7 +70,7 @@ module.exports = async (client, message) => {
             const filter = m => m.author.id === message.author.id;
 
             await message.reply('Hey Busta, want some crack?');
-            message.channel.awaitMessages(filter, { max: 1, time: 30000 }).then(collected => {
+            message.channel.awaitMessages(filter, { max: 1, time: 20000 }).then(collected => {
                 if (collected.first().content.toLowerCase() === "no" || collected.first().content.toLowerCase() === "n") {
                     message.reply('You coward');
                     return;

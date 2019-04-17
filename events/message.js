@@ -1,7 +1,5 @@
-const fs = require('fs'),
-    Discord = require('discord.js');
-const config = require('../config.json'),
-    colors = require('../colors.json'),
+const Discord = require('discord.js');
+const colors = require('../colors.json'),
     XP = require('../models/xp.js'),
     CRACK = require('../models/crack.js'),
     errors = require('../Lib/errors.js'),
@@ -13,55 +11,57 @@ module.exports = async (client, message) => {
 
     let xpToAdd = Math.floor(Math.random() * 5) + 20;
 
-    XP.findOne({
-        userID: message.author.id,
-        serverID: message.guild.id
-    }, (err, xp) => {
-        if (err) console.error(err);
-        if (!xp) {
-            const newXp = new XP({
-                userID: message.author.id,
-                userName: message.author.username,
-                serverID: message.guild.id,
-                xp: xpToAdd,
-                level: 1
-            })
+    if (!message.content.includes('c!')) {
+        XP.findOne({
+            userID: message.author.id,
+            serverID: message.guild.id
+        }, (err, xp) => {
+            if (err) console.error(err);
+            if (!xp) {
+                const newXp = new XP({
+                    userID: message.author.id,
+                    userName: message.author.username,
+                    serverID: message.guild.id,
+                    xp: xpToAdd,
+                    level: 1
+                })
 
-            newXp.save().catch(err => console.error(err));
-        } else {
-            let curLvl = xp.level;
-            let nextLvl = xp.level * 5000;
+                newXp.save().catch(err => console.error(err));
+            } else {
+                let curLvl = xp.level;
+                let nextLvl = xp.level * 5000;
 
-            xp.xp = xp.xp + xpToAdd;
+                xp.xp = xp.xp + xpToAdd;
 
-            if (nextLvl <= xp.xp) {
-                xp.level = curLvl + 1;
+                if (nextLvl <= xp.xp) {
+                    xp.level = curLvl + 1;
 
-                let lvlUpEmb = new Discord.RichEmbed()
-                    .setTitle("Level Up!")
-                    .setColor(colors.main)
-                    .setDescription(`Good job Hustla, ${message.author} has ranked up`)
-                    .setFooter(`You are now rank ${curLvl + 1}`);
+                    let lvlUpEmb = new Discord.RichEmbed()
+                        .setTitle("Level Up!")
+                        .setColor(colors.main)
+                        .setDescription(`Good job Hustla, ${message.author} has ranked up`)
+                        .setFooter(`You are now rank ${curLvl + 1}`);
 
-                message.channel.send(lvlUpEmb).then(msg => { msg.delete(5000) });
+                    message.channel.send(lvlUpEmb).then(msg => { msg.delete(5000) });
 
-                if (xp.level === 3) {
-                    let memberRole = message.member.guild.roles.find(r => r.name === 'Bustas');
-                    message.member.addRole(memberRole);
+                    if (xp.level === 3) {
+                        let memberRole = message.member.guild.roles.find(r => r.name === 'Bustas');
+                        message.member.addRole(memberRole);
+                    }
+                    if (xp.level === 6) {
+                        let memberRole = message.member.guild.roles.find(r => r.name === 'Hustlas');
+                        message.member.addRole(memberRole);
+                    }
+                    if (xp.level === 10) {
+                        let memberRole = message.member.guild.roles.find(r => r.name === 'Dealas');
+                        message.member.addRole(memberRole);
+                    }
                 }
-                if (xp.level === 6) {
-                    let memberRole = message.member.guild.roles.find(r => r.name === 'Hustlas');
-                    message.member.addRole(memberRole);
-                }
-                if (xp.level === 10) {
-                    let memberRole = message.member.guild.roles.find(r => r.name === 'Dealas');
-                    message.member.addRole(memberRole);
-                }
+
+                xp.save().catch(err => console.log(err));
             }
-
-            xp.save().catch(err => console.log(err));
-        }
-    })
+        })
+    }
 
     if (message.content.includes(client.user.toString())) {
         if (message.content.includes('yo')) {

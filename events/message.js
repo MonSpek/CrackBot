@@ -76,7 +76,7 @@ module.exports = async (client, message) => {
                 return;
             } else if (collected.first().content.toLowerCase() === "yes" || collected.first().content.toLowerCase() === "y" || collected.first().content.toLowerCase() === "ye") {
                 message.reply("You are a dope boy busta\nIt'll cost you 1000 points though busta.\nIs that ok? (Y/N)");
-                message.channel.awaitMessages(filter, { max: 1, time: 30000 }).then(col => {
+                message.channel.awaitMessages(filter, { max: 1, time: 20000 }).then(col => {
                     if (col.first().content.toLowerCase() === "no" || col.first().content.toLowerCase() === "n") {
                         message.reply("Go get some points then coward!");
                         return;

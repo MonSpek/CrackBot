@@ -26,12 +26,12 @@ module.exports.run = async (message, arg, client, errors, emb) => {
             const backwardsFilter = (reaction, user) => reaction.emoji.name === '⬅' && user.id === message.author.id;
             const forwardsFilter = (reaction, user) => reaction.emoji.name === '➡' && user.id === message.author.id;
 
-            const backwards = msg.createReactionCollector(backwardsFilter, { timer: 6000 });
-            const forwards = msg.createReactionCollector(forwardsFilter, { timer: 6000 });
+            const backwards = msg.createReactionCollector(backwardsFilter, { timer: 20000 });
+            const forwards = msg.createReactionCollector(forwardsFilter, { timer: 20000 });
 
             backwards.on('collect', r => {
-                if (page === 1) return;
                 r.remove(r.users.filter(u => u === message.author).first());
+                if (page === 1) return;
                 page--;
                 embed.setDescription(pages[page - 1]);
                 embed.setFooter(`Page ${page} of ${pages.length}`);
@@ -39,14 +39,16 @@ module.exports.run = async (message, arg, client, errors, emb) => {
             })
 
             forwards.on('collect', r => {
-                if (page === pages.length) return;
                 r.remove(r.users.filter(u => u === message.author).first());
+                if (page === pages.length) return;
                 page++;
                 embed.setDescription(pages[page - 1]);
                 embed.setFooter(`Page ${page} of ${pages.length}`);
                 msg.edit(embed)
             })
         })
+
+        msg.delete(21000)
     });
 }
 

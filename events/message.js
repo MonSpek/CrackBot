@@ -140,9 +140,9 @@ module.exports = async (client, message) => {
 
     if (message.content.includes(client.user.toString())) {
         if (message.content.includes('yo')) {
-            message.channel.send(`${message.author}\nWhat up busta?`);
+            message.reply('What up busta?');
         } else {
-
+            message.reply("Coward what do you want?");
         }
     }
 

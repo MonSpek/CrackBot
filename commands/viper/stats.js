@@ -19,9 +19,9 @@ module.exports.run = async (message, arg, client, errors, emb) => {
 
         embed.addField('**points/xp**:', `*${xp.xp}*`);
 
-        if (xp.level < 3) embed.addField('**level**:', '*Coward*');
-        if (xp.level >= 3) embed.addField('**level**:', '*Busta*');
-        if (xp.level >= 6) embed.addField('**level**:', '*Hustla*');
+        if (xp.level < 3 && xp.level <3) embed.addField('**level**:', '*Coward*');
+        if (xp.level >= 3 && xp.level < 6) embed.addField('**level**:', '*Busta*');
+        if (xp.level >= 6 && xp.level < 10) embed.addField('**level**:', '*Hustla*');
         if (xp.level >= 10) embed.addField('**level**:', '*Deala*');
 
         CRACK.findOne({

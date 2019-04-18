@@ -16,9 +16,11 @@ module.exports.run = async (message, arg, client, errors, emb) => {
         userID: message.author.id,
         serverID: message.guild.id
     }, async (err, crack) => {
+        if (crack.crackAmt === null || crack.crackAmt === undefined) return;
+
         if (err) console.error(err);
 
-        if (crack.crackAmt <= 0 || crack.crackAmt === null || crack.crackAmt === undefined) {
+        if (crack.crackAmt <= 0) {
             embed.setDescription("You don't have any crack to smoke!")
             embed.setColor(colors.err)
             return message.channel.send(embed).then(msg => { msg.delete(5000) });
@@ -77,6 +79,8 @@ module.exports.run = async (message, arg, client, errors, emb) => {
                 })
             })
         });
+    }).catch(err => {
+        return;
     })
 }
 

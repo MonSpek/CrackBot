@@ -3,6 +3,8 @@ const Discord = require('discord.js'),
 const colors = require('../../colors.json');
 
 module.exports.run = async (message, arg, client, errors, emb) => {
+    await message.delete();
+
     let pages = [
         "**Buy**:\nA place to buy Viper's items\n\n**Covers**:\nSends a random Viper cover\n\n**leaderboard**:\nA dope leaderboard of bustas who have smoked crack\n\n**Smoke**:\nAllows to smoke some of Viper's crack\n\n**Stats**\nShows your stats",
         '**Help**:\nProvides a list of commands'

@@ -71,8 +71,10 @@ module.exports.run = async (message, arg, client, errors, emb) => {
                     }
                 })
             }
+        }).catch(err => {
+            return;
         })
-        
+
         msg.delete(16000);
     });
 }

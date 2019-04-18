@@ -3,8 +3,8 @@ const CRACK = require('../../models/crack.js'),
     colors = require('../../colors.json');
 
 module.exports.run = async (message, arg, client, errors, emb) => {
-    CRACK.find({ 
-        serverID: message.guild.id 
+    CRACK.find({
+        serverID: message.guild.id
     }).sort([
         ['crackSmoked', 'descending']
     ]).exec((err, res) => {
@@ -12,9 +12,12 @@ module.exports.run = async (message, arg, client, errors, emb) => {
 
         let embed = new Discord.RichEmbed()
             .setTitle("Crack smoked Leaderboard")
+            .setImage('https://i.imgur.com/vXRfAd6.gif')
+            .setThumbnail(message.guild.iconURL)
 
         if (res.length === 0) {
             embed.setColor("RED");
+            embed.setImage('')
             embed.addField("No data found", "Please smoke some crack coward!")
         } else if (res.length < 10) {
             embed.setColor(colors.main);
@@ -40,7 +43,7 @@ module.exports.run = async (message, arg, client, errors, emb) => {
             }
         }
 
-        message.channel.send(embed);
+        message.channel.send(embed).then(msg => { msg.delete(25000) });
     })
 }
 

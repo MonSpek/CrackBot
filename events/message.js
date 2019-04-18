@@ -129,7 +129,6 @@ module.exports = async (client, message) => {
                                             message.channel.send(crackEmb);
                                         }
                                     })
-                                    //message.reply("Congrats busta you got some crack. Smoke it wisely!");
                                     xp.save().catch(err => console.log(err));
                                 }
                             })

@@ -69,73 +69,82 @@ module.exports = async (client, message) => {
     if (base0 === base1) {
         const filter = m => m.author.id === message.author.id;
 
-        await message.reply('*Walks out of the allies*\nHey Busta, want some crack?');
-        message.channel.awaitMessages(filter, { max: 1, time: 20000 }).then(collected => {
-            if (collected.first().content.toLowerCase() === "no" || collected.first().content.toLowerCase() === "n") {
-                message.reply('You coward');
+        await message.reply('*Walks out of the alleys*\nHey Busta, want some crack?').then(msg => {
+            message.channel.awaitMessages(filter, { max: 1, time: 20000 }).then(collected => {
+                if (collected.first().content.toLowerCase() === "no" || collected.first().content.toLowerCase() === "n") {
+                    message.reply('You coward');
+                    return;
+                } else if (collected.first().content.toLowerCase() === "yes" || collected.first().content.toLowerCase() === "y" || collected.first().content.toLowerCase() === "ye") {
+                    message.reply("You are a dope boy busta\nIt'll cost you 1000 points though busta.\nIs that ok? (Y/N)");
+                    message.channel.awaitMessages(filter, { max: 1, time: 20000 }).then(col => {
+                        if (col.first().content.toLowerCase() === "no" || col.first().content.toLowerCase() === "n") {
+                            message.reply("Go get some points then coward!");
+                            return;
+                        } else if (col.first().content.toLowerCase() === "yes" || col.first().content.toLowerCase() === "y" || col.first().content.toLowerCase() === "ye") {
+                            XP.findOne({
+                                userID: message.author.id,
+                                serverID: message.guild.id
+                            }, (err, xp) => {
+                                if (err) console.error(err);
+                                if (!xp || xp.xp < 1000) {
+                                    message.reply("Go get some points coward!");
+                                    return;
+                                } else if (xp.xp >= 1000) {
+                                    xp.xp = xp.xp - 1000;
+                                    CRACK.findOne({
+                                        userID: message.author.id,
+                                        serverID: message.guild.id
+                                    }, (err, crack) => {
+                                        if (err) console.error(err);
+
+                                        if (!crack) {
+                                            const newCrack = new CRACK({
+                                                userID: message.author.id,
+                                                userName: message.author.username,
+                                                serverID: message.guild.id,
+                                                crackAmt: 1,
+                                                crackSmoked: 0
+                                            })
+
+                                            newCrack.save().catch(err => console.error(err));
+
+                                            const crackEmb = new Discord.RichEmbed()
+                                                .setTitle("Crack Acquired!")
+                                                .setColor(colors.main)
+                                                .setDescription(`Good job busta, ${message.author} has bought some crack!`)
+                                                .setFooter('You now have 1 crack rock');
+
+                                            message.channel.send(crackEmb);
+                                        } else {
+                                            let curCrackLvl = crack.crackAmt;
+                                            crack.crackAmt = crack.crackAmt + 1;
+                                            crack.save().catch(err => console.log(err));
+
+                                            const crackEmb = new Discord.RichEmbed()
+                                                .setTitle("Crack Acquired!")
+                                                .setColor(colors.main)
+                                                .setDescription(`Good job busta, ${message.author} has bought some crack!`)
+                                                .setFooter(`You now have ${curCrackLvl + 1} crack rocks`);
+
+                                            message.channel.send(crackEmb);
+                                        }
+                                    })
+                                    xp.save().catch(err => console.log(err));
+                                }
+                            })
+                        }
+                    })
+                }
+            }).catch(err => {
                 return;
-            } else if (collected.first().content.toLowerCase() === "yes" || collected.first().content.toLowerCase() === "y" || collected.first().content.toLowerCase() === "ye") {
-                message.reply("You are a dope boy busta\nIt'll cost you 1000 points though busta.\nIs that ok? (Y/N)");
-                message.channel.awaitMessages(filter, { max: 1, time: 20000 }).then(col => {
-                    if (col.first().content.toLowerCase() === "no" || col.first().content.toLowerCase() === "n") {
-                        message.reply("Go get some points then coward!");
-                        return;
-                    } else if (col.first().content.toLowerCase() === "yes" || col.first().content.toLowerCase() === "y" || col.first().content.toLowerCase() === "ye") {
-                        XP.findOne({
-                            userID: message.author.id,
-                            serverID: message.guild.id
-                        }, (err, xp) => {
-                            if (err) console.error(err);
-                            if (!xp || xp.xp < 1000) {
-                                message.reply("Go get some points coward!");
-                                return;
-                            } else if (xp.xp >= 1000) {
-                                xp.xp = xp.xp - 1000;
-                                CRACK.findOne({
-                                    userID: message.author.id,
-                                    serverID: message.guild.id
-                                }, (err, crack) => {
-                                    if (err) console.error(err);
+            })
 
-                                    if (!crack) {
-                                        const newCrack = new CRACK({
-                                            userID: message.author.id,
-                                            userName: message.author.username,
-                                            serverID: message.guild.id,
-                                            crackAmt: 1,
-                                            crackSmoked: 0
-                                        })
+            setTimeout(function() {
+                msg.edit("I guess you don't want crack...\n*Walks back into the alleys*");
+            }, 20000)
 
-                                        newCrack.save().catch(err => console.error(err));
-
-                                        const crackEmb = new Discord.RichEmbed()
-                                            .setTitle("Crack Acquired!")
-                                            .setColor(colors.main)
-                                            .setDescription(`Good job busta, ${message.author} has bought some crack!`)
-                                            .setFooter('You now have 1 crack rock');
-
-                                        message.channel.send(crackEmb);
-                                    } else {
-                                        let curCrackLvl = crack.crackAmt;
-                                        crack.crackAmt = crack.crackAmt + 1;
-                                        crack.save().catch(err => console.log(err));
-
-                                        const crackEmb = new Discord.RichEmbed()
-                                            .setTitle("Crack Acquired!")
-                                            .setColor(colors.main)
-                                            .setDescription(`Good job busta, ${message.author} has bought some crack!`)
-                                            .setFooter(`You now have ${curCrackLvl + 1} crack rocks`);
-
-                                        message.channel.send(crackEmb);
-                                    }
-                                })
-                                xp.save().catch(err => console.log(err));
-                            }
-                        })
-                    }
-                })
-            }
-        }).catch(err => console.error(err))
+            msg.delete(25000);
+        });
     }
 
     if (message.content.includes(client.user.toString())) {

@@ -63,13 +63,13 @@ module.exports = async (client, message) => {
         })
     }
 
-    if (message.content.includes(client.user.toString())) {
-        if (message.content.includes('yo')) {
-            message.channel.send(`${message.author}\nWhat up busta?`);
-        } else {
-            const filter = m => m.author.id === message.author.id;
+    let base0 = Math.floor(Math.random() * 12) + 1;
+    let base1 = Math.floor(Math.random() * 12) + 1;
 
-            await message.reply('Hey Busta, want some crack?');
+    if (base0 === base1) {
+        const filter = m => m.author.id === message.author.id;
+
+            await message.reply('*Walks out of the allies*\nHey Busta, want some crack?');
             message.channel.awaitMessages(filter, { max: 1, time: 20000 }).then(collected => {
                 if (collected.first().content.toLowerCase() === "no" || collected.first().content.toLowerCase() === "n") {
                     message.reply('You coward');
@@ -136,6 +136,13 @@ module.exports = async (client, message) => {
                     })
                 }
             }).catch(err => console.error(err))
+    }
+
+    if (message.content.includes(client.user.toString())) {
+        if (message.content.includes('yo')) {
+            message.channel.send(`${message.author}\nWhat up busta?`);
+        } else {
+
         }
     }
 

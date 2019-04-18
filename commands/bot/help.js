@@ -21,7 +21,6 @@ module.exports.run = async (message, arg, client, errors, emb) => {
         msg.react('⬅').then(r => {
             msg.react('➡')
 
-            // Filters
             const backwardsFilter = (reaction, user) => reaction.emoji.name === '⬅' && user.id === message.author.id;
             const forwardsFilter = (reaction, user) => reaction.emoji.name === '➡' && user.id === message.author.id;
 

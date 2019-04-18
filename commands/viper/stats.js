@@ -8,8 +8,10 @@ module.exports.run = async (message, arg, client, errors, emb) => {
 
     let embed = new Discord.RichEmbed()
         .setColor(colors.main)
+        .setThumbnail(message.author.avatarURL)
         .setTitle("Your stats")
-        .setDescription(`stats for ${message.member.username} on ${message.guild.name}`)
+        .setDescription(`stats for ${message.member} on ${message.guild.name}`)
+        .setImage('https://i.imgur.com/vXRfAd6.gif')
 
     XP.findOne({
         userID: message.author.id,
@@ -33,7 +35,7 @@ module.exports.run = async (message, arg, client, errors, emb) => {
             embed.addField('**Amount of crack owned**:', `*${crack.crackAmt}*`);
             embed.addField('**Crack smoked**:', `*${crack.crackSmoked}*`);
 
-            message.channel.send(embed).then(msg => { msg.delete(10000) });
+            message.channel.send(embed).then(msg => { msg.delete(15000) });
         })
     })
 }

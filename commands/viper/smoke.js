@@ -18,7 +18,7 @@ module.exports.run = async (message, arg, client, errors, emb) => {
     }, async (err, crack) => {
         if (err) console.error(err);
 
-        if (crack.crackAmt <= 0) {
+        if (crack.crackAmt <= 0 || crack.crackAmt === null || crack.crackAmt === undefined) {
             embed.setDescription("You don't have any crack to smoke!")
             embed.setColor(colors.err)
             return message.channel.send(embed).then(msg => { msg.delete(5000) });
